@@ -1,3 +1,17 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "semi": "error",
+    "semi-style": "error",
+    "jsx-a11y/aria-props": "off",
+    "jsx-a11y/aria-proptypes": "off",
+    "react/no-unknown-property": [
+      "error",
+      {
+        "ignore": [
+          "jsx"
+        ]
+      }
+    ]
+  }
 }

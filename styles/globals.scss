@@ -1,0 +1,22 @@
+@use 'sass:map';
+@import 'carbon-components-react';
+
+$fallback: $g100;
+$theme: (
+);
+
+.g10 {
+  $fallback: $g10;
+  @include theme(map.merge($fallback, $theme));
+}
+
+.g100 {
+  $fallback: $g100;
+  @include theme(map.merge($fallback, $theme));
+}
+
+html,
+body,
+div#__next {
+  height: 100%;
+}

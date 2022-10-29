@@ -1,0 +1,21 @@
+.textDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.textDiv:hover {
+  cursor: pointer;
+}
+
+.textInput input {
+  padding-left: 4px;
+  height: 24px;
+  border: unset;
+  font-size: var(--cds-body-02-font-size, 1rem)
+}
+
+.textInput div {
+  width: unset;
+}

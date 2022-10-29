@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Models
+
+model User {
+  id Int @id @default(autoincrement())
+
+  username String  @unique
+  name     String?
+
+  preferredLocale String @default("en")
+  preferredTheme  String @default("g100")
+
+  passwordHash String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  terms Term[]
+}
+
+model Term {
+  id Int @id @default(autoincrement())
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  name String
+
+  start DateTime
+  end   DateTime
+
+  courses  Course[]
+  holidays Holiday[]
+}
+
+model Holiday {
+  id Int @id @default(autoincrement())
+
+  term   Term @relation(fields: [termId], references: [id])
+  termId Int
+}
+
+model Course {
+  id Int @id @default(autoincrement())
+
+  Term   Term @relation(fields: [termId], references: [id])
+  termId Int
+
+  name String
+
+  tasks  Task[]
+  events Event[]
+
+  classes Class[]
+}
+
+model Class {
+  id Int @id @default(autoincrement())
+
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  on       DateTime
+  duration Int
+}
+
+model Event {
+  id Int @id @default(autoincrement())
+
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  name String
+
+  on       DateTime
+  duration Int
+}
+
+model Task {
+  id Int @id @default(autoincrement())
+
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  name String
+
+  description String
+
+  dueDate DateTime
+}

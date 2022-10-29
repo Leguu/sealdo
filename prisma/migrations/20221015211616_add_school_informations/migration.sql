@@ -1,0 +1,53 @@
+-- CreateTable
+CREATE TABLE "Term" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "userId" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    "start" DATETIME NOT NULL,
+    "end" DATETIME NOT NULL,
+    CONSTRAINT "Term_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Holiday" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "termId" INTEGER NOT NULL,
+    CONSTRAINT "Holiday_termId_fkey" FOREIGN KEY ("termId") REFERENCES "Term" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Course" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "termId" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    CONSTRAINT "Course_termId_fkey" FOREIGN KEY ("termId") REFERENCES "Term" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Class" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "courseId" INTEGER NOT NULL,
+    "on" DATETIME NOT NULL,
+    "duration" INTEGER NOT NULL,
+    CONSTRAINT "Class_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Event" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "courseId" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    "on" DATETIME NOT NULL,
+    "duration" INTEGER NOT NULL,
+    CONSTRAINT "Event_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Task" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "courseId" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "dueDate" DATETIME NOT NULL,
+    CONSTRAINT "Task_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
